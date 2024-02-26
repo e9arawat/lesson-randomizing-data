@@ -25,7 +25,7 @@ def create_assets(p):
     today_date = date.today()
     assets = []
     for asset_id in range(1, p + 1):
-        random_date = today_date - datetime.timedelta(days=random.randint(0, 500))
+        random_date = today_date - datetime.timedelta(days=random.randint(1, 500))
         assets.append({"id": asset_id, "purchase_date": random_date})
 
     fieldnames = ["id", "purchase_date"]
