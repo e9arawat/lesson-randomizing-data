@@ -1,8 +1,7 @@
 """
 Randomizing data
 """
-from datetime import date
-import datetime
+from datetime import date, timedelta
 import random
 import csv
 
@@ -25,7 +24,7 @@ def create_assets(p):
     today_date = date.today()
     assets = []
     for asset_id in range(1, p + 1):
-        random_date = today_date - datetime.timedelta(days=random.randint(1, 500))
+        random_date = today_date - timedelta(days=random.randint(1, 500))
         assets.append({"id": asset_id, "purchase_date": random_date})
 
     fieldnames = ["id", "purchase_date"]
@@ -43,7 +42,6 @@ def create_rentals(assets, q):
     today_date = date.today()
     for rental_id in range(1, q + 1):
         if not assets_copy:
-            print("No assets to rent")
             break
         asset = random.choice(assets_copy)
         asset_date = asset["purchase_date"]
@@ -51,15 +49,10 @@ def create_rentals(assets, q):
             data["end_date"] for data in rentals if data["asset_id"] == asset["id"]
         ]
         if end_dates:
-            asset_date = max(end_dates) + datetime.timedelta(days=1)
+            asset_date = max(end_dates) + timedelta(days=1)
 
-        start_date = (
-            date.today()
-            if asset_date == today_date
-            else today_date
-            - datetime.timedelta(days=random.randint(1, (today_date - asset_date).days))
-        )
-        end_date = start_date + datetime.timedelta(days=random.randint(10, 100))
+        start_date = asset_date + timedelta(days=random.randint(0, 50))
+        end_date = start_date + timedelta(days=random.randint(10, 100))
         if end_date >= today_date:
             assets_copy.remove(asset)
 
