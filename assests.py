@@ -32,15 +32,15 @@ def create_rentals(assets, q):
     fake = Faker()
     for _ in range(q):
         asset = random.choice(assets)
-        asset_purchase_date = asset["purchase_date"]
+        asset_date = asset["purchase_date"]
         is_asset = []
         for data in rentals:
             if data["asset_id"] == asset["id"]:
                 is_asset.append(data["end_date"])
         if is_asset:
-            asset_purchase_date = max(is_asset)
+            asset_date = max(is_asset)
         asset_id = asset["id"]
-        start_date = fake.date_between(asset_purchase_date, today_date)
+        start_date = fake.date_between(asset_date, today_date)
         end_date = fake.date_between(start_date, today_date)
         rentals.append(
             {
@@ -52,8 +52,7 @@ def create_rentals(assets, q):
         )
         rental_id += 1
 
-    for d in rentals:
-        print(d)
+    return rentals
 
 
 if __name__ == "__main__":
