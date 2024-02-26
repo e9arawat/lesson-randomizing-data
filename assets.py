@@ -4,6 +4,7 @@ Randomizing data
 from datetime import date, timedelta
 import random
 
+
 def create_assets(p):
     """
     generating random data for assets
@@ -40,7 +41,11 @@ def create_rentals(assets, q):
             assets_copy.remove(asset)
 
         rentals.append(
-            {"id": rental_id,"asset_id": asset["id"],"start_date": start_date,"end_date": end_date}
+            {
+                "id": rental_id,
+                "asset_id": asset["id"],
+                "start_date": start_date,
+                "end_date": end_date,
+            }
         )
     return rentals
-
