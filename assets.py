@@ -46,7 +46,7 @@ def create_rentals(assets, q):
             print("No assets to rent")
             return None
         asset = random.choice(assets_copy)
-        asset_date = asset["purchase_date"] + datetime.timedelta(days=1)
+        asset_date = asset["purchase_date"]
         end_dates = [
             data["end_date"] for data in rentals if data["asset_id"] == asset["id"]
         ]
@@ -56,7 +56,7 @@ def create_rentals(assets, q):
         start_date = (
             date.today()
             if asset_date == today_date
-            else date.today()
+            else today_date
             - datetime.timedelta(days=random.randint(1, (today_date - asset_date).days))
         )
         end_date = start_date + datetime.timedelta(days=random.randint(10, 100))
