@@ -44,7 +44,7 @@ def create_rentals(assets, q):
     for rental_id in range(1, q + 1):
         if not assets_copy:
             print("No assets to rent")
-            return None
+            break
         asset = random.choice(assets_copy)
         asset_date = asset["purchase_date"]
         end_dates = [
