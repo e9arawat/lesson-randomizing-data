@@ -3,19 +3,6 @@ Randomizing data
 """
 from datetime import date, timedelta
 import random
-import csv
-
-
-def create_csv(data, filename, fieldnames):
-    """
-    creating csv file
-    """
-    with open(filename, "w", encoding="utf-8") as f:
-        csv_writer = csv.DictWriter(f, fieldnames=fieldnames)
-        csv_writer.writeheader()
-        for row in data:
-            csv_writer.writerow(row)
-
 
 def create_assets(p):
     """
@@ -26,10 +13,6 @@ def create_assets(p):
     for asset_id in range(1, p + 1):
         random_date = today_date - timedelta(days=random.randint(1, 500))
         assets.append({"id": asset_id, "purchase_date": random_date})
-
-    fieldnames = ["id", "purchase_date"]
-    create_csv(assets, "assets.csv", fieldnames)
-
     return assets
 
 
@@ -57,19 +40,7 @@ def create_rentals(assets, q):
             assets_copy.remove(asset)
 
         rentals.append(
-            {
-                "id": rental_id,
-                "asset_id": asset["id"],
-                "start_date": start_date,
-                "end_date": end_date,
-            }
+            {"id": rental_id,"asset_id": asset["id"],"start_date": start_date,"end_date": end_date}
         )
-
-    fieldnames = ["id", "asset_id", "start_date", "end_date"]
-    create_csv(rentals, "rental.csv", fieldnames)
     return rentals
 
-
-if __name__ == "__main__":
-    random_assets = create_assets(10)
-    create_rentals(random_assets, 20)
